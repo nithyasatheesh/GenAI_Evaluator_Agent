@@ -265,10 +265,11 @@ Return JSON only.
                 min(score, max_score)
             )
 
-            row[criterion] = score
+            row[f"{criterion} ({max_score})"] = score
             total += score
 
-        row["Total"] = total
+        max_total = rubric_df["Max Score"].fillna(0).astype(float).sum()
+        row[f"Total ({int(max_total)})"] = total
         row["Rating"] = rating_from_score(total)
 
         row["Strengths"] = "; ".join(
